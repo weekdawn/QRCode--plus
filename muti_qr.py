@@ -38,7 +38,14 @@ def qr_scan(folder):
 if __name__ == '__main__':
 	
 	threads = []
-	img_folder = [r"H:\QR\QRdemo\half_qrimg",r"H:\QR\QRdemo\is_qrimg",r"H:\QR\QRdemo\not_qrimg"]
+	img_folder = []
+	for i in range(1,4):
+		tmp = raw_input("Please input three QR-image's path (input enter to default),"+str(i)+":")
+		if tmp:
+			img_folder.append(tmp)
+	if not img_folder:
+		img_folder = [r".\half_qrimg",r".\is_qrimg",r".\not_qrimg"]
+	
 	thread_num = range(len(img_folder))
 	
 	start = time.time()
