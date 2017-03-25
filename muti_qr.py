@@ -4,6 +4,7 @@ from PIL import Image
 import sys
 import threading
 import time
+import os
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -21,26 +22,27 @@ def qr_scan(folder):
 	global n
 	scanner = zbar.ImageScanner()
 	scanner.parse_config('enable')
-	for i in range(100):
-		img = Image.open('./'+str(folder)+'/'+str(folder)+str(i)+'.png').convert('L')
-		w, h = img.size
-		zimg = zbar.Image(w, h, 'Y800', img.tobytes())
-		scanner.scan(zimg)
-		n += 1
-		for s in zimg:
-			if not s.data:
-				print  "ERROR : "+str(folder)+str(i)+".png is not QRcode!\n"
-			else:
-				print str(folder)+str(i)+'.png : '+s.data.decode('utf-8').encode('gbk')+"\n"
+	for root,dir,file in os.walk(folder):
+		for i in file:
+			img = Image.open(root+"/"+i).convert('L')
+			w, h = img.size
+			zimg = zbar.Image(w, h, 'Y800', img.tobytes())
+			scanner.scan(zimg)
+			n += 1
+			for s in zimg:
+				if not s.data:
+					print  "ERROR : "+str(i)+" is not QRcode!\n"
+				else:
+					print str(i)+":"+s.data.decode('utf-8').encode('gbk')+"\n"
 
 if __name__ == '__main__':
 	
 	threads = []
-	img_folder = ["is_qrimg","not_qrimg","half_qrimg"]
+	img_folder = [r"H:\QR\QRdemo\half_qrimg",r"H:\QR\QRdemo\is_qrimg",r"H:\QR\QRdemo\not_qrimg"]
 	thread_num = range(len(img_folder))
 	
 	start = time.time()
-	n = 1
+	n = 0
 	for f in img_folder:
 		t = MyThread(qr_scan,(f,))
 		threads.append(t)
