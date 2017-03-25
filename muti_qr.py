@@ -18,10 +18,10 @@ def qr_scan(folder):
 		scanner.scan(zimg)
 		for s in zimg:
 			if not s.data:
-				print "error:This is not QRcode!Please select another photo.\n"
+				print  "ERROR : "+str(folder)+str(i)+".png is not QRcode!\n"
 			else:
-				print s.data.decode('utf-8').encode('gbk')
-	
+				print str(folder)+str(i)+'.png : '+s.data.decode('utf-8').encode('gbk')+"\n"
+
 if __name__ == '__main__':
 	
 	threads = []
@@ -38,24 +38,3 @@ if __name__ == '__main__':
 	for i in thread_num:
 		threads[i].join()
 		
-	print 'QRscan Done at '+time.ctime()
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
