@@ -18,6 +18,7 @@ class MyThread(threading.Thread):
 		apply(self.func, self.args)
 
 def qr_scan(folder):
+	global n
 	scanner = zbar.ImageScanner()
 	scanner.parse_config('enable')
 	for i in range(100):
@@ -25,6 +26,7 @@ def qr_scan(folder):
 		w, h = img.size
 		zimg = zbar.Image(w, h, 'Y800', img.tobytes())
 		scanner.scan(zimg)
+		n += 1
 		for s in zimg:
 			if not s.data:
 				print  "ERROR : "+str(folder)+str(i)+".png is not QRcode!\n"
@@ -36,7 +38,9 @@ if __name__ == '__main__':
 	threads = []
 	img_folder = ["is_qrimg","not_qrimg","half_qrimg"]
 	thread_num = range(len(img_folder))
-
+	
+	start = time.time()
+	n = 1
 	for f in img_folder:
 		t = MyThread(qr_scan,(f,))
 		threads.append(t)
@@ -46,4 +50,14 @@ if __name__ == '__main__':
 	
 	for i in thread_num:
 		threads[i].join()
+		
+	spend = time.time() - start
+	print "总耗时：" + str(spend) + "秒"
+	print "共扫描" + str(n) + "张图片"
+		
+		
+		
+		
+		
+		
 		
