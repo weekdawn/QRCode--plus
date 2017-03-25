@@ -1,4 +1,4 @@
 from qrtest import QrCreate
 
-q = QrCreate('test','test002.png')
+q = QrCreate(raw_input().decode('gbk'),'test002.png')
 q.create()
