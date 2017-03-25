@@ -74,10 +74,5 @@ if __name__ == '__main__':
 	spend = time.time() - start
 	print "总耗时：" + str(spend) + "秒"
 	print "共扫描" + str(n) + "张图片"
-	raw_input()
-		
-		
-		
-		
-		
+	os.system("pause")
 		
