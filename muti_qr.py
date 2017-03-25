@@ -8,6 +8,15 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+class MyThread(threading.Thread):
+	def __init__(self, func, args):
+		threading.Thread.__init__(self)
+		self.func = func
+		self.args = args
+	
+	def run(self):
+		apply(self.func, self.args)
+
 def qr_scan(folder):
 	scanner = zbar.ImageScanner()
 	scanner.parse_config('enable')
@@ -29,7 +38,7 @@ if __name__ == '__main__':
 	thread_num = range(len(img_folder))
 
 	for f in img_folder:
-		t = threading.Thread(target=qr_scan, args=(f,))
+		t = MyThread(qr_scan,(f,))
 		threads.append(t)
 	
 	for i in thread_num:
