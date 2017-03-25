@@ -13,8 +13,7 @@ qr = qrcode.QRCode(
 
 	)
 
-qr.add_data("this is a 121, 中文")
-for i in range(50):
-	qr.make(fit=True)
-	img = qr.make_image()
-	img.save("./halfqr/half_qrimg"+str(i)+".png")
+qr.add_data("http://www.baidu.com")
+qr.make(fit=True)
+img = qr.make_image()
+img.save("test001.png")
