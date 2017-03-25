@@ -1,6 +1,7 @@
 #coding=utf-8
 import qrcode
 import sys
+import os
 
 reload(sys)
 #设置系统默认编码方式，避免中文乱码
@@ -26,6 +27,7 @@ class QrCreate:
 		img.save(self.img_name)
 		
 if __name__ == '__main__':
-	qr = QrCreate('123 is a 数字！！ ','wk.png')
+	qr = QrCreate(raw_input("Please input your QRCode data:").decode('gbk'),raw_input("Please input QRCode name:")+".png")
 	qr.create()
-	
+	print "QRCode created successfully!"
+	os.system("pause")
