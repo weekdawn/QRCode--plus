@@ -3,12 +3,17 @@ from PIL import Image
 import sys
 
 reload(sys)
+#设置系统默认编码方式，避免中文乱码
 sys.setdefaultencoding('utf-8')
-
+#创建zbar扫描器
 scanner = zbar.ImageScanner()
+#打开zbar解析配置
 scanner.parse_config('enable')
+#打开需要扫描的二维码
 img = Image.open('./halfqr/half_qrimg55.png').convert('L')
+#获取二维码图片的宽和高
 w, h = img.size
+#将图片数据传入扫描器
 zimg = zbar.Image(w, h, 'Y800', img.tobytes())
 
 scanner.scan(zimg)
