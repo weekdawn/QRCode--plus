@@ -23,12 +23,12 @@ class QrCreate:
 		qr.add_data(self.data)
 		qr.make(fit=True)
 		img = qr.make_image()
-		img_name = str(count) + ".png"
+		img_name = "D:/" + str(count) + ".png"
 		img.save(img_name)
 		count += 1
 		
 if __name__ == '__main__':
 	count = 0
-	qr = QrCreate(raw_input("Please input your QRCode data:").decode('gbk'))
+	qr = QrCreate(sys.argv[1].decode("gbk").encode("utf-8"))
 	qr.create()
 	print "QRCode created successfully!"

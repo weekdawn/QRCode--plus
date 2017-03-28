@@ -28,6 +28,5 @@ def qrScan(file_name):
 
 if __name__ == '__main__':
 	data_file = open("qr_data.ini", "a")
-	data_file.write("[Config]\n")
-	name = raw_input("Please input QRcode's name:")
-	q = qrScan(name)
+	file_name = sys.argv[1]
+	q = qrScan(file_name)
