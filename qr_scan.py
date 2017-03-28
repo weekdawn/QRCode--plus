@@ -2,7 +2,6 @@
 import zbar
 from PIL import Image
 import sys
-import os
 
 reload(sys)
 #设置系统默认编码方式，避免中文乱码
@@ -24,10 +23,11 @@ def qrScan(file_name):
 		if not s.data:
 			print "error:This is not QRcode!\nPlease select another photo."
 		else:
-			print s.data.decode('utf-8').encode('gbk')
+			data_file.write( "value : " + s.data.decode('utf-8').encode('gbk') + "\n")
 			
 
 if __name__ == '__main__':
+	data_file = open("qr_data.ini", "a")
+	data_file.write("[Config]\n")
 	name = raw_input("Please input QRcode's name:")
 	q = qrScan(name)
-	os.system("pause")
