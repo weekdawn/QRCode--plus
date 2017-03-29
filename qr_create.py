@@ -1,6 +1,7 @@
 #coding=utf-8
 import qrcode
 import sys
+import os
 
 reload(sys)
 #设置系统默认编码方式，避免中文乱码
@@ -12,7 +13,6 @@ class QrCreate:
 		self.data = data
 		
 	def create(self):
-		global count
 		#生成的二维码参数设置
 		qr = qrcode.QRCode(
 			version = 2,	#表示生成二维码的尺寸大小[1,40]
@@ -23,12 +23,14 @@ class QrCreate:
 		qr.add_data(self.data)
 		qr.make(fit=True)
 		img = qr.make_image()
-		img_name = "D:/" + str(count) + ".png"
+		img_name = "./output/qr.png"
 		img.save(img_name)
-		count += 1
 		
 if __name__ == '__main__':
-	count = 0
+	#创建输出文件夹
+	if not os.path.exists("output"):
+		os.mkdir("output")
+	#从命令行接收二维码数据
 	qr = QrCreate(sys.argv[1].decode("gbk").encode("utf-8"))
 	qr.create()
-	print "QRCode created successfully!"
+	print "QRCode created successfully!" 
