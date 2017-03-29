@@ -8,9 +8,10 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 #二维码创建
 class QrCreate:
-	#参数说明：data为需要转换成二维码的数据，img_name为生成的二维码的保存路径（若只有图片名，则默认保存在根目录下）
-	def __init__(self,data):
+	#参数说明：data为需要转换成二维码的数据，img_name为生成的二维码名称
+	def __init__(self, data, name):
 		self.data = data
+		self.img_name = name
 		
 	def create(self):
 		#生成的二维码参数设置
@@ -23,14 +24,14 @@ class QrCreate:
 		qr.add_data(self.data)
 		qr.make(fit=True)
 		img = qr.make_image()
-		img_name = "./output/qr.png"
-		img.save(img_name)
+		img_path = "./output/" + str(self.img_name)
+		img.save(img_path)
 		
 if __name__ == '__main__':
 	#创建输出文件夹
 	if not os.path.exists("output"):
 		os.mkdir("output")
 	#从命令行接收二维码数据
-	qr = QrCreate(sys.argv[1].decode("gbk").encode("utf-8"))
+	qr = QrCreate(sys.argv[1].decode("gbk").encode("utf-8"), sys.argv[2])
 	qr.create()
 	print "QRCode created successfully!" 
