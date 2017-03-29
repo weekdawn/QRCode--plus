@@ -17,7 +17,7 @@ class QrCreate:
 	def create(self):
 		#创建输出文件夹
 		if not os.path.exists("output"):
-		os.mkdir("output")
+			os.mkdir("output")
 		#生成的二维码参数设置
 		qr = qrcode.QRCode(
 			version = 2,	#表示生成二维码的尺寸大小[1,40]
