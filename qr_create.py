@@ -12,8 +12,12 @@ class QrCreate:
 	def __init__(self, data, name):
 		self.data = data
 		self.img_name = name
-		
+	
+	#创建二维码
 	def create(self):
+		#创建输出文件夹
+		if not os.path.exists("output"):
+		os.mkdir("output")
 		#生成的二维码参数设置
 		qr = qrcode.QRCode(
 			version = 2,	#表示生成二维码的尺寸大小[1,40]
@@ -28,9 +32,6 @@ class QrCreate:
 		img.save(img_path)
 		
 if __name__ == '__main__':
-	#创建输出文件夹
-	if not os.path.exists("output"):
-		os.mkdir("output")
 	#从命令行接收二维码数据
 	qr = QrCreate(sys.argv[1].decode("gbk").encode("utf-8"), sys.argv[2])
 	qr.create()
