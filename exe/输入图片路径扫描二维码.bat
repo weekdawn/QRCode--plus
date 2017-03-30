@@ -1,3 +1,3 @@
-qr_scan.exe "H:/QR/QRdemo/cntest.png"
-qr_scan.exe "H:/QR/QRdemo/cn.png"
-qr_scan.exe "H:/QR/QRdemo/wk.png"
+qr_scan.exe "./output/test001.png"
+qr_scan.exe "./output/test002.png"
+qr_scan.exe "./output/test003.png"
